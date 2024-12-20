@@ -1,4 +1,11 @@
 -- +goose Up
+CREATE TABLE IF NOT EXISTS accounts (
+    id SERIAL,
+    name VARCHAR(255) NOT NULL,
+    balance INT NOT NULL,
+    PRIMARY KEY (id)
+);
+
 CREATE TABLE IF NOT EXISTS rooms (
     id SERIAL,
     name VARCHAR(255) NOT NULL,
@@ -35,6 +42,7 @@ CREATE TABLE IF NOT EXISTS tickets (
     id SERIAL,
     showtime_id INT NOT NULL,
     seat_id INT NOT NULL,
+    status VARCHAR(55),
     PRIMARY KEY (id),
     FOREIGN KEY (seat_id) REFERENCES seats(id),
     FOREIGN KEY (showtime_id) REFERENCES showtimes(id)
@@ -117,9 +125,21 @@ INSERT INTO tickets (showtime_id, seat_id) VALUES (4, 18);
 INSERT INTO tickets (showtime_id, seat_id) VALUES (4, 19);
 INSERT INTO tickets (showtime_id, seat_id) VALUES (4, 20);
 
+INSERT INTO accounts (name, balance) VALUES ('Alice', 1000);
+INSERT INTO accounts (name, balance) VALUES ('Bob', 1000);
+INSERT INTO accounts (name, balance) VALUES ('Charlie', 1000);
+INSERT INTO accounts (name, balance) VALUES ('David', 1000);
+INSERT INTO accounts (name, balance) VALUES ('Eve', 1000);
+INSERT INTO accounts (name, balance) VALUES ('Frank', 1000);
+INSERT INTO accounts (name, balance) VALUES ('Grace', 1000);
+INSERT INTO accounts (name, balance) VALUES ('Heidi', 1000);
+INSERT INTO accounts (name, balance) VALUES ('Ivan', 1000);
+INSERT INTO accounts (name, balance) VALUES ('Judy', 1000);
+
 -- +goose Down
 DROP TABLE IF EXISTS tickets;
 DROP TABLE IF EXISTS showtimes;
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS seats;
 DROP TABLE IF EXISTS rooms;
+DROP TABLE IF EXISTS accounts;
